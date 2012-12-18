@@ -139,6 +139,7 @@ function rules_rules_core_data_info_alter(&$data_info) {
           'group' => t('List', array(), array('context' => 'data_types')),
         );
         if (isset($info['parent']) && $info['parent'] == 'entity') {
+          $data_info[$list_type]['parent'] = 'list<entity>';
           $data_info[$list_type]['ui class'] = 'RulesDataUIListEntity';
         }
       }

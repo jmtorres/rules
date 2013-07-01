@@ -569,7 +569,7 @@ class RulesPluginUI extends FacesExtender implements RulesPluginUIInterface {
     if ($form['settings']['name']['#default_value'] != $form_values['name']) {
       $module = isset($this->element->module) ? $this->element->module : 'rules';
       $this->element->name = $module . '_' . $form_values['name'];
-      $form_state['redirect'] = RulesPluginUI::path($this->element->name);
+      $form_state['redirect'] = RulesPluginUI::path($this->element->name, 'edit', $this->element);
     }
     $this->element->tags = empty($form_values['tags']) ? array() : drupal_explode_tags($form_values['tags']);
 
@@ -991,7 +991,7 @@ class RulesContainerPluginUI extends RulesPluginUI {
       $form['elements'][$id]['weight'] = array(
         '#type' => 'weight',
         '#default_value' => $child->weight,
-        '#delta' => 20,
+        '#delta' => 50,
       );
       $form['elements'][$id]['parent_id'] = array(
         '#type' => 'hidden',
@@ -1087,7 +1087,7 @@ class RulesContainerPluginUI extends RulesPluginUI {
           '#theme' => 'rules_content_group',
           '#caption' => t('Tags'),
           'tags' => array(
-            '#markup' => implode(', ', $this->element->tags),
+            '#markup' => check_plain(drupal_implode_tags($this->element->tags)),
           ),
         );
       }
